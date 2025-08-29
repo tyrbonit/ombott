@@ -3,7 +3,7 @@ import mimetypes
 import time
 
 import email.utils
-
+from urllib.parse import quote
 from .common_helpers import parse_date
 from .response import HTTPResponse, HTTPError
 from .ombott import Globals
@@ -95,7 +95,7 @@ def static_file(filename, root, mimetype='auto', download=False, charset='UTF-8'
 
     if download:
         download = os_path.basename(filename if download is True else download)
-        headers['Content-Disposition'] = 'attachment; filename="%s"' % download
+        headers['Content-Disposition'] = 'attachment; filename="%s"; filename*=UTF-8\'\'%s' % (download, quote(download))
 
     stats = os.stat(filename)
     headers['Content-Length'] = clen = stats.st_size
