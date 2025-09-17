@@ -60,7 +60,7 @@ def make_disposition_header(file_name, disposition_type="attachment"):
     :return:
     """
     ascii_name = (
-        unicodedata.normalize("NFKD", file_name).encode("ascii", "ignore").decode()
+        unicodedata.normalize("NFKD", file_name).encode("ascii", "replace").decode()
     )
     header = f'{disposition_type}; filename="{ascii_name}"'
     if ascii_name != file_name:
